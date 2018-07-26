@@ -9,7 +9,8 @@
 // This link also includes instructions on opting out of this behavior.
 var CACHE_NAME = 'cat';
 var urlsToCache = [
-  '/'
+  '/',
+  'js/actions.js'
 ];
 
 self.addEventListener('install', function(event) {
