@@ -9,7 +9,7 @@
 // This link also includes instructions on opting out of this behavior.
 var CACHE_NAME = "cat";
 var urlsToCache = [
-  "/",
+  "index.html",
   "js/actions.js"
 ];
 
