@@ -7,10 +7,10 @@
 
 // To learn more about the benefits of this model, read https://goo.gl/KwvDNy.
 // This link also includes instructions on opting out of this behavior.
-var CACHE_NAME = 'cat';
+var CACHE_NAME = "cat";
 var urlsToCache = [
-  '/',
-  'js/actions.js'
+  "/",
+  "js/actions.js"
 ];
 
 self.addEventListener('install', function(event) {
