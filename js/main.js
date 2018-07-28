@@ -34,10 +34,10 @@ function showPosition(position) {
     
 	latitude = position.coords.latitude;
 	longitude = position.coords.longitude
-	myMap();
+	myMap(latitude,longitude);
 }
 
-function myMap() {
+function myMap(latitude,longitude) {
 
 var mapProp= {
     center:new google.maps.LatLng(latitude,longitude),
