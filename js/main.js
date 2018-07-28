@@ -31,13 +31,16 @@ var x = document.getElementById("label");
 function showPosition(position) {
     x.innerHTML = "Latitude: " + position.coords.latitude + 
     "<br>Longitude: " + position.coords.longitude;
-    myMap();
+    
+	latitude = position.coords.latitude;
+	longitude = position.coords.longitude
+	myMap();
 }
 
 function myMap() {
 
 var mapProp= {
-    center:new google.maps.LatLng(position.coords.latitude,position.coords.longitude),
+    center:new google.maps.LatLng(latitude,longitude),
     zoom:5,
 };
 
