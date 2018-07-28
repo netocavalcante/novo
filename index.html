@@ -7,32 +7,21 @@
     <meta name="theme-color" content="#000000">
     
     <link rel="manifest" href="manifest.json">
-    <link rel="shortcut icon" href="img/48.png">
-    
+    <link rel="shortcut icon" href="./img/48.png">
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
     <title>My App</title>
   </head>
 <body>
 
 <p id="label">Primeiro Teste</p>
 
-<button onclick="mudarCor()">Try It</button>
+<button onclick="execute()">Try It</button>
 
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
-    navigator.serviceWorker.register('service-worker.js').then(function(registration) {
-      // Registration was successful
-      console.log('ServiceWorker registration successful with scope: ', registration.scope);
-    }).catch(function(err) {
-      // registration failed :(
-      console.log('ServiceWorker registration failed: ', err);
-    });
-  });
-}
-</script>
+<p id="map"> </p>
 
+<script src="js/main.js"></script>
 <script src="js/actions.js"></script>
-
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHt6632X9OBWYjyg1jvDlbDGDC94HEr_M&callback=myMap"></script>
 </body>
 </html>
 
