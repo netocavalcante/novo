@@ -44,12 +44,16 @@ function myMap() {
 
 var mapProp= {
     center:new google.maps.LatLng(latitude,longitude),
-    zoom:6,
-    center: myLatLng
+    zoom:8	
 };
 
      
 
 var map=new google.maps.Map(document.getElementById("map"),mapProp);
+
+var mark = new google.maps.Marker({
+position : myLatLng, map:map, title :"My position"
+}); 
+
 }
 
