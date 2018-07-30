@@ -52,15 +52,7 @@ var mark = new google.maps.Marker({
 position : myLatLng, map:map, title :"My position"
 }); 
 
- mark.addListener('click', toggleBounce);
 
-function toggleBounce() {
-  if (marker.getAnimation() !== null) {
-    marker.setAnimation(null);
-  } else {
-    marker.setAnimation(google.maps.Animation.BOUNCE);
-  }
-}
 
 }
 
