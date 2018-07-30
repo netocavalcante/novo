@@ -43,16 +43,13 @@ function myMap() {
  myLatLng = {lat: latitude, lng: longitude};
 
 var mapProp= {
-    center:new google.maps.LatLng(latitude,longitude),
-    zoom:8	
+    center:new google.maps.LatLng(latitude,longitude)   	
 };
-
-     
 
 var map=new google.maps.Map(document.getElementById("map"),mapProp);
 
 var mark = new google.maps.Marker({
-position : myLatLng, map:map, title :"My position"
+position : myLatLng, map:map, title :"My position", zoom:8
 }); 
 
 }
