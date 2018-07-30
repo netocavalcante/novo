@@ -52,7 +52,7 @@ var marker = new google.maps.Marker({
           map: mapProp,
           title: 'My Position!'
         });
-      }
+      
 
 var map=new google.maps.Map(document.getElementById("map"),mapProp);
 }
