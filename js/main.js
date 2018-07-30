@@ -41,7 +41,7 @@ function myMap(latitude,longitude) {
 
 var mapProp= {
     center:new google.maps.LatLng(latitude,longitude),
-    zoom:5,
+    zoom:10,
 };
 
 
