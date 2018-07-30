@@ -2,6 +2,7 @@ var src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHt6632X9OBWYjyg1jvDl
 
 var latitude = 1;  
 var longitude = 1;
+var myLatLng = null;
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function() {
@@ -34,12 +35,12 @@ function showPosition(position) {
     
 	latitude = position.coords.latitude;
 	longitude = position.coords.longitude
-	myMap(latitude,longitude);
+	myMap();
 }
 
-function myMap(latitude,longitude) {
+function myMap() {
 
- var myLatLng = {lat: latitude, lng: longitude};
+ myLatLng = {lat: latitude, lng: longitude};
 
 var mapProp= {
     center:new google.maps.LatLng(latitude,longitude),
