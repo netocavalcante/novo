@@ -43,14 +43,23 @@ function myMap() {
  myLatLng = {lat: latitude, lng: longitude};
 
 var mapProp= {
-    center:new google.maps.LatLng(latitude,longitude)   	
+    center:new google.maps.LatLng(latitude,longitude),zoom:8   	
 };
 
 var map=new google.maps.Map(document.getElementById("map"),mapProp);
 
 var mark = new google.maps.Marker({
-position : myLatLng, map:map, title :"My position", zoom:8
+position : myLatLng, map:map, title :"My position"
 }); 
+
+ mark.addListener('click', toggleBounce);
+
+function toggleBounce() {
+  if (marker.getAnimation() !== null) {
+    marker.setAnimation(null);
+  } else {
+    marker.setAnimation(google.maps.Animation.BOUNCE);
+  }
 
 }
 
