@@ -1,8 +1,8 @@
 function initMap() {
     
     let map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 10,
-        center: {lat: -9.28, lng: -40.05},
+        zoom: 7,
+        center: {lat: -9.28, lng: -36.05},
     });
 
     const url = 'https://catalogodeservico.com.br/saude/hospitais/';
