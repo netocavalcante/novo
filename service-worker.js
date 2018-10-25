@@ -1,93 +1,83 @@
-// In production, we register a service worker to serve assets from local cache.
-
-// This lets the app load faster on subsequent visits in production, and gives
-// it offline capabilities. However, it also means that developers (and users)
-// will only see deployed updates on the "N+1" visit to a page, since previously
-// cached resources are updated in the background.
-
-// To learn more about the benefits of this model, read https://goo.gl/KwvDNy.
-// This link also includes instructions on opting out of this behavior.
-var CACHE_NAME = "v1";
-var urlsToCache = [
-  "./",
-  "./index.html",
-  "./js/actions.js",
-  "./js/main.js",
-  "./css/style.css", 
-  "./img/48.png",
-  "./img/72.png",
-  "./img/128.png",
-  "./img/144.png",
-  "./img/168.png",
-  
+var dataCacheName = 'servicesCatalog-v1.0.0';
+var cacheName = 'services-catalog-1.0.0';
+var filesToCache = [
+'./',
+'./index.html',
+'./css/style.css',
+'./js/main.js',
+'./img/48.png',
+'./img/72.png',
+'./img/128.png',
+'./img/144.png',
+'./img/168.png',
+'./img/192.png',
+'./img/512.png',
 ];
 
-self.addEventListener('install', function(event) {
-  // Perform install steps
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(function(cache) {
-        console.log('Opened cache');
-        return cache.addAll(urlsToCache);
-      })
-  );
-});
-
-
-self.addEventListener('activate', function(event){
-
-  console.log("[ServiceWorker] Activate");
-  event.waitUntil(
-
-      caches.keys().then(function(CACHE_NAME){
-            return Promise.all(CACHE_NAME.map(function(thisCACHE_NAME){
-                if (thisCACHE_NAME !== CACHE_NAME ){
-                  console.log("[ServiceWorker] removing files from cache", thisCACHE_NAME);
-                  return caches.delete(thisCACHE_NAME);
-                }
-            }))
-      })
-
+self.addEventListener('install', function(e) {
+  console.log('[ServiceWorker] Install');
+  e.waitUntil(
+    caches.open(cacheName).then(function(cache) {
+      console.log('[ServiceWorker] Caching app shell');
+      return cache.addAll(filesToCache);
+    })
     );
-
 });
 
-self.addEventListener('fetch', function(event){
+self.addEventListener('activate', function(e) {
+  console.log('[ServiceWorker] Activate');
+  e.waitUntil(
+    caches.keys().then(function(keyList) {
+      return Promise.all(keyList.map(function(key) {
+        if (key !== cacheName && key !== dataCacheName) {
+          console.log('[ServiceWorker] Removing old cache', key);
+          return caches.delete(key);
+        }
+      }));
+    })
+    );
+  /*
+   * Fixes a corner case in which the app wasn't returning the latest data.
+   * You can reproduce the corner case by commenting out the line below and
+   * then doing the following steps: 1) load app for first time so that the
+   * initial New York City data is shown 2) press the refresh button on the
+   * app 3) go offline 4) reload the app. You expect to see the newer NYC
+   * data, but you actually see the initial data. This happens because the
+   * service worker is not yet activated. The code below essentially lets
+   * you activate the service worker faster.
+   */
+   return self.clients.claim();
+ });
 
-    console.log("[ServiceWorker] fetch");
-
-    event.respondWith(
-
-        caches.match(event.request).then(function(response){
-
-            if(response){
-              console.log("[ServiceWorker] Found in cache", event.request.url);
-              return response;
-            }
-
-            var requestClone = event.request.clone();
-
-            fetch(requestClone).then(function(response){
-                if(!response){
-                  console.log("[ServiceWorker] No response from ServiceWorker");
-                  return response;
-                }
-
-                var responseClone = response.clone();
-
-                caches.open(CACHE_NAME).then(function(cache){
-
-                    cache.put(event.request,responseClone);
-                    return responseClone;
-                });
-            
-            })
-            .catch(function(err){
-              console.log("Error")
-            })
-
-        })
-      )
-
-});
-
+self.addEventListener('fetch', function(e) {
+  console.log('[Service Worker] Fetch', e.request.url);
+  var dataUrl = 'https://query.yahooapis.com/v1/public/yql';
+  if (e.request.url.indexOf(dataUrl) > -1) {
+    /*
+     * When the request URL contains dataUrl, the app is asking for fresh
+     * weather data. In this case, the service worker always goes to the
+     * network and then caches the response. This is called the "Cache then
+     * network" strategy:
+     * https://jakearchibald.com/2014/offline-cookbook/#cache-then-network
+     */
+     e.respondWith(
+      caches.open(dataCacheName).then(function(cache) {
+        return fetch(e.request).then(function(response){
+          cache.put(e.request.url, response.clone());
+          return response;
+        });
+      })
+      );
+   } else {
+    /*
+     * The app is asking for app shell files. In this scenario the app uses the
+     * "Cache, falling back to the network" offline strategy:
+     * https://jakearchibald.com/2014/offline-cookbook/#cache-falling-back-to-network
+     */
+     e.respondWith(
+      caches.match(e.request).then(function(response) {
+        return response || fetch(e.request);
+      })
+      );
+   }
+ });
