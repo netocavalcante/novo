@@ -21,6 +21,11 @@
       "src": "img/144.png",
       "sizes": "144x144",
       "type": "image/png"
+    },
+    {
+      "src": "img/168.png",
+      "sizes": "169x168",
+      "type": "image/png"
     }
   ],
   "start_url": "./index.html",
