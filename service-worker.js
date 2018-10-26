@@ -9,7 +9,9 @@ var filesToCache = [
 './img/72.png',
 './img/128.png',
 './img/144.png',
-'./img/168.png'
+'./img/168.png',
+'./img/192.png',
+'./img/512.png',
 ];
 
 self.addEventListener('install', function(e) {
