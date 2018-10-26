@@ -1,3 +1,13 @@
+// Service Worker Registration
+
+if (navigator.serviceWorker) {
+	navigator.serviceWorker.register('./service-worker.js').then(function(registration) {
+		console.log('ServiceWorker registration successful with scope:',  registration.scope);
+	}).catch(function(error) {
+		console.log('ServiceWorker registration failed:', error);
+	});
+}
+
 function initMap() {
     
     let map = new google.maps.Map(document.getElementById('map'), {
