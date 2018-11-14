@@ -1,5 +1,5 @@
-var dataCacheName = 'servicesCatalog-v1.0.4';
-var cacheName = 'services-catalog-1.0.4';
+var dataCacheName = 'servicesCatalog-v1.0.1';
+var cacheName = 'services-catalog-1.0.1';
 var filesToCache = [
 '/',
 '/index.html',
