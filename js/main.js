@@ -25,9 +25,11 @@ function initMap() {
             
             let latLng = { lat: latitude, lng: longitude };
             
-            let marker = new google.maps.Marker({
+            new google.maps.Marker({
                 position: latLng,
-                map: map
+                map: map,
+                draggable: true,
+                animation: google.maps.Animation.DROP,
             })
         });
     });
