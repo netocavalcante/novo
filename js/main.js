@@ -28,7 +28,6 @@ function initMap() {
             new google.maps.Marker({
                 position: latLng,
                 map: map,
-                draggable: true,
                 animation: google.maps.Animation.DROP,
             })
         });
