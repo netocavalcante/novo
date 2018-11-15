@@ -23,11 +23,11 @@ var urlsToCache = [
 '/img/512.png',
 ];
 
-self.addEventListener('install', function(event) {
+self.addEventListener('install', event => {
   // Perform install steps
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then(function(cache) {
+      .then(cache => {
         console.log('Opened cache');
         return cache.addAll(urlsToCache);
       })
