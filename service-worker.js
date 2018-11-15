@@ -85,11 +85,10 @@ self.addEventListener('install', function(e) {
         * https://jakearchibald.com/2014/offline-cookbook/#cache-then-network
         */
         e.respondWith(
-          caches.open(dataCacheName).then(function(cache) {
-            return fetch(e.request).then(function(response){
-              cache.put(e.request.url, response.clone());
-              return response;
-            });
+          caches.open(dataCacheName).then(async function(cache) {
+            const response = await fetch(e.request);
+            cache.put(e.request.url, response.clone());
+            return response;
           })
           );
         } else {
